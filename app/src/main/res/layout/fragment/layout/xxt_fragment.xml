@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/topbar"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="98dp">
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="#FFFFFF"
+                    android:minHeight="40dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        app:layout_collapseMode="none"
+                        android:orientation="horizontal"
+                        >
+                        <View
+                            android:id="@+id/status_bar_placeholder"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:background="#ffffff"/>
+                        <SearchView
+                            android:id="@+id/courseSearch_xxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:layout_below="@+id/status_bar_placeholder"
+                            android:iconifiedByDefault="false"
+                            android:queryHint="搜索课程"
+                            android:queryBackground="@drawable/search_bcg"
+                             />
+                    </RelativeLayout>
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_xxt"
+                            app:layout_collapseMode="pin"
+                            android:layout_width="match_parent"
+                            android:layout_gravity="bottom"
+                            android:layout_height="40dp"
+                            android:background="#ffffff"
+                            app:tabIndicator="@drawable/tab_indicator"
+                            app:tabIndicatorColor="#08A4F8"
+                            app:tabRippleColor="@android:color/transparent"
+                            app:tabMode="scrollable"
+                            >
+                        </com.google.android.material.tabs.TabLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:id="@+id/nsv"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <!--tab下fragment需要内容主体部分-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:nestedScrollingEnabled="false"
+                            android:id="@+id/xxt_vp">
+                        </androidx.viewpager2.widget.ViewPager2>
+                        <View android:layout_width="match_parent"
+                            android:layout_height="60dp"/>
+                    </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <!-- 登录按钮及头像设置   -->
+        <Button
+            android:id="@+id/head_photo"
+            android:layout_height="54dp"
+            android:layout_width="54dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/xxt_login_button"
+            android:text="@string/xxt_login_button_text"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:elevation="5dp"
+            app:layout_anchor="@id/tab_xxt"
+            app:rippleColor="@android:color/transparent"
+            app:layout_anchorGravity="bottom|end"
+            />
+        <ImageView
+            android:id="@+id/head_photo_image"
+            android:scaleType="fitXY"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:elevation="20dp"
+            app:layout_anchorGravity="center"
+            app:layout_anchor="@id/head_photo"
+            />
+
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+

@@ -1,0 +1,126 @@
+-------------------------------------超星学习通登录方式-----------------------------------------------
+    最初的想法是用学习通统一登录来实现加载课程以及刷课，这样可以适配所有学校(笑。但是后来发现学习通主页登录后部分高校
+还设有学校内学号密码二次登陆进入学习平台！打听了一下，非疫情期间的话很多人不用学习通，所以这种方法就废弃了，写在这里记
+录一下给需要的同学~
+    唯一值得注意的是，学习通登录不是明文传输，密码是通过base64编码后再传输的，所以这里用J2V8库让我们的app执行js脚本
+达到了自行编码的目的，assets文件夹中的jquery.base64.js就是登录网站中的负责编码的js文件，我提取出来并稍微修改了一下便于使用~
+
+
+
+            val xxtphoneNumber=xxtphonenumberEtext.text.toString()
+            val xxtpassWord=xxtpasswordEtext.text.toString()
+            val urlLogin="https://passport2.chaoxing.com/login?fid=&newversion=true&refer=http://erya.mooc.chaoxing.com"
+            val urlFanyalogin="https://passport2.chaoxing.com/fanyalogin"
+            val urlinHDlogin="http://i.mooc.chaoxing.com/space/index.shtml"
+//加载等待UI
+
+
+//登录逻辑
+            Thread{
+                val loginStatus=Message() //线程mes
+
+                try{
+                    val firstResponse=Jsoup.connect(urlLogin)
+                        .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.40")
+                        .method(Connection.Method.GET).timeout(60000)
+                        .maxBodySize(0)
+                        .execute()
+                    val cookie=firstResponse.cookies()
+                    val encodedFile=assets.open("jquery.base64.js") //修改后的编码文件
+                    val reader=BufferedReader(InputStreamReader(encodedFile))
+                    val stringBuilder=StringBuilder()
+                    do {
+                        val line=reader.readLine()
+                        if(line!=null){
+                            stringBuilder.append(line)
+                        }else{
+                            break
+                        }
+                    }while (true)
+//编码pwd
+                    val runtime= V8.createV8Runtime()
+                    val encodePassword=runtime.executeStringScript("var pwd=\""+xxtpassWord+"\";"
+                        +stringBuilder.toString())
+                    runtime.release(true)   //内存泄漏检测开启
+                    encodedFile.close()
+//POST登录
+                    val jsonData=
+                        "fid=-1&uname=$xxtphoneNumber&password=$encodePassword&refer=http%253A%252F%252Ferya.mooc.chaoxing.com&t=true"
+                    val secResponse=Jsoup.connect(urlFanyalogin)
+                        .header("Accept","*/*")
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.40")
+                        .requestBody(jsonData)
+                        .maxBodySize(0)
+                        .method(Connection.Method.POST)
+                        .followRedirects(true)
+                        .timeout(60000)
+                        .cookies(cookie).execute()
+                    val receiveCookie=secResponse.cookies()
+//                    val urlStatus="https://passport2.chaoxing.com/getauthstatus"
+//获取uuid和enc和fid (适用于一切登录需要使用页面加载元素的内容)
+//                    val doc=response.parse()
+//                    val uuid=doc.getElementById("uuid").attr("value").toString()
+//                    val enc=doc.getElementById("enc").attr("value").toString()
+//                    val fid=doc.getElementById("fid").attr("value").toString()
+//POST status
+//                    val status=HashMap<String,String>()
+//                    status["enc"]=enc
+//                    status["uuid"]=uuid
+//                    val statusResponse=Jsoup.connect(urlStatus)
+//                        .header("Accept","application/json, text/javascript, */*; q=0.01")
+//                        .method(Connection.Method.POST)
+//                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.40")
+//                        .data(status)
+//                        .timeout(60000)
+//                    putCookie(cookie,statusResponse)
+//                    val statusResult=statusResponse.execute()
+//                    Log.w("xxtActivity",cookie.toString())
+//                    Log.w("xxtActivity",status.toString())
+//                    Log.w("xxtActivity",statusResult.body())
+
+
+//    private fun putCookie(cookies:Map<String,String>, responseIn:Connection){
+//        for (entry in cookies.entries){
+//            responseIn.cookie(entry.key,entry.value)
+//        }
+//    }
+
+//POST登录学校对接的学习平台即可
+
+
+
+
+---------------------------------------------------------------------------------------------------
+
+//                    val indexUrl="https://webvpn.hlju.edu.cn/286396e7/"
+//                    val indexUrl2="https://webvpn.hlju.edu.cn/286396e7/_web/fusionportal/index_n/index.jsp?_p=YXM9MSZwPTEmbT1OJg__"
+
+
+/*
+ * 下面暂时用不到，是登录教务处的原码
+ * */
+//                    val thrResponse=Jsoup.connect(indexUrl)
+//                        .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8").header("Upgrade-Insecure-Requests","1")
+//                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0")
+//                        .header("Connection","keep-alive")
+//                        .method(Connection.Method.GET)
+//                        .maxBodySize(0)
+//                        .timeout(10000).followRedirects(true)
+//                        .cookies(secCookie)
+//                        .execute()
+//                    finCookies.putAll(cookie)
+//                    finCookies.putAll(secCookie)
+//                    finCookies.putAll(thrResponse.cookies())
+//                    finCookies["org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE"] =
+//                        "zh_CN"
+//                    val fourthResponse=Jsoup.connect(indexUrl2)
+//                        .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8").header("Upgrade-Insecure-Requests","1")
+//                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0")
+//                        .header("Connection","keep-alive")
+//                        .method(Connection.Method.GET)
+//                        .maxBodySize(0)
+//                        .timeout(10000).followRedirects(true)
+//                        .cookies(finCookies)
+//                        .execute()
+//                    finCookies.putAll(fourthResponse.cookies())

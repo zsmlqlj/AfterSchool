@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <View
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+    <View
+        android:id="@+id/text_indicator"
+        android:layout_width="4dp"
+        android:layout_height="73dp"
+        android:visibility="gone"
+        android:layout_below="@id/placeholder"
+        android:background="@drawable/curriculum_recyclerview_item_indicator"
+        />
+    <TextView
+        android:id="@+id/curriculum_recyclerview_coursename_textview"
+        android:layout_below="@+id/placeholder"
+        android:layout_toEndOf="@id/text_indicator"
+        android:layout_width="match_parent"
+        android:layout_marginStart="4dp"
+        android:textSize="18sp"
+        android:layout_height="45dp"
+        android:textColor="#333333"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/curriculum_recyclerview_courseplace_textview"
+        android:layout_height="20dp"
+        android:layout_width="120dp"
+        android:layout_marginStart="2dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/curriculum_recyclerview_coursename_textview"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:id="@+id/curriculum_recyclerview_courseplace_imageview"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toStartOf="@+id/curriculum_recyclerview_courseplace_textview"
+        android:layout_below="@id/curriculum_recyclerview_coursename_textview"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/place_image"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/curriculum_recyclerview_coursetime_textview"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@+id/curriculum_recyclerview_coursetime_imageview"
+        android:layout_below="@id/curriculum_recyclerview_coursename_textview"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/curriculum_recyclerview_coursetime_imageview"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/curriculum_recyclerview_coursename_textview"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/time_image"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+</RelativeLayout>

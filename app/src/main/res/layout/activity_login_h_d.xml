@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/logo"
+            android:scaleType="fitXY"
+            android:layout_width="200dp"
+            android:layout_height="80dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_marginTop="10dp"
+            app:hintTextColor="#7C7B7B"
+            app:hintTextAppearance="@style/texthint"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/heidaNumberEtext"
+                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:inputType="phone"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:textSize="18sp"
+                android:background="@drawable/edittext_shape"
+                android:hint="@string/loginhd_hint1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userInputLayout"
+            app:hintTextColor="#7C7B7B"
+            app:hintTextAppearance="@style/texthint"
+            app:passwordToggleEnabled="true"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/heidaPasswordEtext"
+                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:inputType="textPassword"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:textSize="18sp"
+                android:background="@drawable/edittext_shape"
+                android:hint="@string/loginhd_hint2"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_below="@+id/passwordInputLayout"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp">
+            <Button
+                android:id="@+id/heidaLoginbtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/login_h_d_btn_selector"
+                style="?android:attr/borderlessButtonStyle" />
+            <!--覆盖点击效果view-->
+        </FrameLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

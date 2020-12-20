@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_height="160dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/courseimage"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/coursebg"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/coursename"/>
+        <View
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:id="@+id/coursebg"
+            android:background="@drawable/courseicon"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="53dp"/>
+        <!--添加fitxy属性牺牲图片显示宽高比来换取glide的圆角ui-->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="55dp"
+            android:scaleType="fitXY"
+            android:layout_alignTop="@id/courseimage"
+            android:id="@+id/courseimageicon"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
